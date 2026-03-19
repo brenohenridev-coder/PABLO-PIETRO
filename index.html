@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pablo Pietro | Agendas para Igrejas</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -146,6 +145,50 @@
       .nav-links{display:none}
       footer{flex-direction:column;gap:1.2rem;text-align:center}
     }
+
+    /* HERO MOBILE */
+    @media(max-width:768px){
+      #hero{align-items:flex-start;justify-content:flex-start;}
+
+      .hero-photo{
+        align-items:flex-end;
+        justify-content:flex-end;
+      }
+      .hero-photo img{
+        height:85vh;
+        max-width:85vw;
+        object-position:bottom right;
+        filter:none;
+      }
+
+      .hero-vignette{
+        background:linear-gradient(to right,
+          rgba(5,14,23,.92) 0%,
+          rgba(5,14,23,.75) 45%,
+          rgba(5,14,23,.1) 100%);
+      }
+
+      .hero-name{
+        position:absolute;
+        top:18vh;
+        left:6vw;
+        padding:0;
+        z-index:6;
+      }
+      .hero-name-first,
+      .hero-name-last{
+        font-size:clamp(3.2rem,15vw,5.5rem);
+      }
+      .hero-tagline{
+        font-size:.7rem;
+        min-width:0;
+      }
+
+      .scroll-hint{
+        bottom:2rem;
+        left:6vw;
+      }
+    }
   </style>
 </head>
 <body>
@@ -185,13 +228,12 @@
 <section id="sobre">
   <div class="reveal">
     <p class="section-label">Quem sou eu</p>
-    <h2 class="section-title">Uma agenda bem<br><em>organizada</em> fortalece o ministério</h2>
-    <p class="section-body">Cuidar de uma agenda ministerial é mais do que organizar datas.
-É servir com zelo, entender a realidade de cada igreja e ajudar para que cada ministração aconteça no tempo certo, com paz, propósito e direção do Espírito Santo.</p>
+    <h2 class="section-title">Uma agenda bem<br><em>estruturada</em> é o início</h2>
+    <p class="section-body">Com anos de experiência auxiliando igrejas de diferentes denominações, desenvolvo agendas estratégicas que alinham a visão ministerial com a realidade operacional de cada comunidade. Cada agenda é única — criada com precisão, propósito e cuidado.</p>
     <div class="sobre-stats">
-      <div class="stat-card"><div class="stat-num">200<span style="font-size:1.8rem">+</span></div><div class="stat-desc">Igrejas Ministradas</div></div>
+      <div class="stat-card"><div class="stat-num">120<span style="font-size:1.8rem">+</span></div><div class="stat-desc">Igrejas Atendidas</div></div>
       <div class="stat-card"><div class="stat-num">5</div><div class="stat-desc">Anos de Experiência</div></div>
-      <div class="stat-card"><div class="stat-num">100<span style="font-size:1.8rem">%</span></div><div class="stat-desc">Satisfação</div></div>
+      <div class="stat-card"><div class="stat-num">98<span style="font-size:1.8rem">%</span></div><div class="stat-desc">Satisfação</div></div>
       <div class="stat-card"><div class="stat-num">∞</div><div class="stat-desc">Comprometimento</div></div>
     </div>
   </div>
@@ -229,12 +271,12 @@
 <section id="servicos">
   <div class="reveal" style="text-align:center">
     <p class="section-label" style="justify-content:center"><span></span>O que ofereço</p>
-    <h2 class="section-title" style="max-width:580px;margin:0 auto 1rem">Louvores e <em>ministrações</em><br>para servir sua igreja</h2>
+    <h2 class="section-title" style="max-width:580px;margin:0 auto 1rem">Serviços <em>exclusivos</em><br>para sua Igreja</h2>
   </div>
   <div class="servicos-grid reveal">
-    <div class="servico-card"><div class="servico-num">01</div><div class="servico-title">Ministrações em cultos e conferências</div><p class="servico-desc">Ministração através de louvores e palavras, conduzindo a igreja a um ambiente de adoração, entrega e presença de Deus.</p></div>
-    <div class="servico-card"><div class="servico-num">02</div><div class="servico-title">Congressos e eventos especiais</div><p class="servico-desc">Participação em programações como congressos, vigílias e encontros, com louvor alinhado ao momento e à visão da igreja.</p></div>
-    <div class="servico-card"><div class="servico-num">03</div><div class="servico-title">Adoração com propósito</div><p class="servico-desc">Mais do que cantar, é servir através do louvor, com sensibilidade espiritual, compromisso e zelo por cada ministração.</p></div>
+    <div class="servico-card"><div class="servico-num">01</div><div class="servico-title">Agenda Anual Personalizada</div><p class="servico-desc">Planejamento completo do calendário eclesiástico com todos os eventos, datas comemorativas e momentos estratégicos da sua comunidade.</p></div>
+    <div class="servico-card"><div class="servico-num">02</div><div class="servico-title">Agenda Ministerial</div><p class="servico-desc">Organização detalhada dos ministérios, escalas de serviço e reuniões de liderança integradas a um único documento funcional.</p></div>
+    <div class="servico-card"><div class="servico-num">03</div><div class="servico-title">Consultoria Estratégica</div><p class="servico-desc">Análise e reestruturação do planejamento atual da sua igreja, identificando lacunas e oportunidades de crescimento ministerial.</p></div>
   </div>
 </section>
 
@@ -266,9 +308,9 @@
   <p class="section-label">Depoimentos</p>
   <h2 class="section-title">O que as <em>igrejas</em> dizem</h2>
   <div class="depo-grid reveal">
-    <div class="depo-card"><p class="depo-quote">"A ministração foi uma resposta de Deus para a nossa igreja. Fomos edificados, confrontados e renovados pela Palavra de forma muito clara e profunda."</p><div class="depo-author">Pr. João Silva</div><div class="depo-church">Igreja B. Central</div></div>
-    <div class="depo-card"><p class="depo-quote">"Há muito tempo não vivíamos um momento tão marcante. Deus usou a vida do Pablo com simplicidade, verdade e muita sensibilidade ao Espírito Santo."</p><div class="depo-author">Prª Maria Lima</div><div class="depo-church">Comunidade Missão Jovem</div></div>
-    <div class="depo-card"><p class="depo-quote">"Uma palavra firme, bíblica e cheia de direção. A igreja foi muito abençoada, e a liderança também saiu fortalecida depois dessa ministração."</p><div class="depo-author">Pr. Carlos Mendes</div><div class="depo-church">Igreja Ágape em RJ</div></div>
+    <div class="depo-card"><p class="depo-quote">"O trabalho do Pablo transformou completamente a nossa organização interna. Nossa equipe nunca esteve tão alinhada e engajada."</p><div class="depo-author">Pastor João Silva</div><div class="depo-church">Igreja Exemplo — São Paulo, SP</div></div>
+    <div class="depo-card"><p class="depo-quote">"Profissionalismo impecável. Entregou além do que esperávamos, com atenção a cada detalhe do nosso calendário ministerial."</p><div class="depo-author">Pastora Maria Lima</div><div class="depo-church">Comunidade Nova Vida — Rio de Janeiro, RJ</div></div>
+    <div class="depo-card"><p class="depo-quote">"Recomendo de olhos fechados. A agenda criada pelo Pablo é um instrumento de governo e visão para toda a nossa liderança."</p><div class="depo-author">Pr. Carlos Mendes</div><div class="depo-church">Igreja Ágape — Belo Horizonte, MG</div></div>
   </div>
 </section>
 
@@ -279,8 +321,8 @@
   </div>
   <div class="cta-label reveal">Entre em Contato</div>
   <div class="cta-divider reveal"></div>
-  <h2 class="cta-title reveal">Pronto para um<br>tempo <em>de adoração na sua igreja?</em></h2>
-  <p class="cta-sub reveal">Solicite agora sua agenda personalizada e vamos juntos em um tempo de adoração e louvores ao Senhor.</p>
+  <h2 class="cta-title reveal">Pronto para organizar<br>o futuro da sua <em>Igreja?</em></h2>
+  <p class="cta-sub reveal">Solicite agora sua agenda personalizada e leve sua comunidade a um novo nível de organização ministerial.</p>
   <div class="cta-buttons reveal">
     <a href="https://wa.me/5521994962955?text=Oi%2C%20gostaria%20de%20marcar%20uma%20agenda%20com%20o%20Pablo%20Pietro." class="btn-wa" target="_blank" rel="noopener">&#128172;&nbsp; Agendar via WhatsApp</a>
     <a href="https://instagram.com/pablopietro.oficial" class="btn-ig" target="_blank" rel="noopener">&#128247;&nbsp; Ver no Instagram</a>
