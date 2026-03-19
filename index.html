@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pablo Pietro | Agendas para Igrejas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --pearl:    #FFF7E6;
+      --midnight: #102E4A;
+      --mid-dark: #0a1f33;
+      --mid-lite: #163a5c;
+      --silver:   #C8D6E0;
+      --silver-d: #8fa8ba;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--mid-dark);color:var(--pearl);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.5rem 6vw;transition:background .5s,border .5s}
+    nav.scrolled{background:rgba(10,31,51,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,214,224,.12)}
+    .nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pearl)}
+    .nav-logo span{color:var(--silver)}
+    .nav-links{display:flex;gap:2.5rem;list-style:none}
+    .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,247,230,.5);text-decoration:none;transition:color .3s}
+    .nav-links a:hover{color:var(--silver)}
+
+    /* HERO */
+    #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;overflow:hidden;background:#050e17}
+    .hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(200,214,224,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(200,214,224,.04) 1px,transparent 1px);background-size:72px 72px}
+    .stars{position:absolute;inset:0;z-index:1;overflow:hidden}
+    .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite alternate}
+    @keyframes twinkle{from{opacity:var(--a1);transform:scale(1)}to{opacity:var(--a2);transform:scale(1.6)}}
+    .hero-vignette{position:absolute;inset:0;z-index:2;background:linear-gradient(to right,rgba(5,14,23,.85) 0%,rgba(5,14,23,.4) 50%,rgba(5,14,23,.05) 100%)}
+    .hero-eyebrow{position:absolute;top:7vh;left:6vw;z-index:5;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:rgba(255,247,230,.45);animation:fadeIn 1.2s .4s both}
+    .hero-photo{position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;justify-content:center;padding-right:0}
+    .hero-photo img{height:96vh;max-width:65vw;object-fit:contain;object-position:bottom center;display:block;animation:photoRise 1.4s cubic-bezier(.22,1,.36,1) both;filter:drop-shadow(-50px 0 50px rgba(5,14,23,.8))}
+    @keyframes photoRise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+    .hero-name{position:relative;z-index:5;text-align:left;padding:0 0 10vh 6vw;animation:fadeUp 1.2s .3s ease both;pointer-events:none}
+    .hero-name-first{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(4.5rem,10vw,9rem);letter-spacing:.03em;line-height:.95;color:var(--pearl);display:block}
+    .hero-name-last{font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:clamp(4.5rem,10vw,9rem);letter-spacing:.03em;line-height:.95;color:var(--pearl);display:block}
+    .hero-tagline{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:500;letter-spacing:.4em;text-transform:uppercase;color:rgba(255,247,230,.45);margin-top:1.4rem;padding-bottom:.85rem;border-bottom:1px solid rgba(200,214,224,.18);width:fit-content;min-width:260px}
+    .scroll-hint{position:absolute;bottom:2.2rem;left:6vw;transform:none;z-index:6;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:500;letter-spacing:.5em;text-transform:uppercase;color:rgba(255,247,230,.32);display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;animation:fadeIn 2s 1.5s both}
+    .scroll-line{width:1px;height:30px;background:linear-gradient(to bottom,rgba(255,247,230,.32),transparent);animation:scrollPulse 1.6s ease-in-out infinite}
+    @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.2)}}
+
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* SECTIONS */
+    section{padding:7rem 8vw}
+    .section-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.38em;text-transform:uppercase;color:var(--silver);display:flex;align-items:center;gap:.9rem;margin-bottom:1.2rem}
+    .section-label::before{content:'';width:28px;height:1px;background:var(--silver);display:block}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,4vw,4rem);font-weight:300;line-height:1.08;color:var(--pearl);margin-bottom:1.4rem}
+    .section-title em{font-style:italic;color:var(--silver)}
+    .section-body{font-size:.95rem;line-height:1.9;color:rgba(255,247,230,.58);max-width:540px}
+
+    /* SOBRE */
+    #sobre{background:var(--midnight);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+    .sobre-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:3rem}
+    .stat-card{background:rgba(10,31,51,.5);border:1px solid rgba(200,214,224,.12);padding:2rem;transition:border-color .35s}
+    .stat-card:hover{border-color:var(--silver)}
+    .stat-num{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:700;color:var(--silver);line-height:1}
+    .stat-desc{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,247,230,.45);margin-top:.4rem}
+    .sobre-img-wrap{position:relative;display:inline-block}
+    .sobre-img-wrap::before{content:'';position:absolute;inset:-14px;border:1px solid rgba(200,214,224,.2);z-index:0}
+    .sobre-img-wrap img{width:100%;max-width:400px;object-fit:cover;display:block;position:relative;z-index:1;filter:brightness(.92)}
+
+    /* CARROSSEIS */
+    .carousel-wrap{overflow:hidden;position:relative;margin-top:3rem;width:100%}
+    .carousel-track{display:flex;gap:3px;transition:transform .45s cubic-bezier(.77,0,.18,1);will-change:transform}
+    .slide-h{flex:0 0 100%;aspect-ratio:16/9;overflow:hidden;position:relative;background:var(--midnight)}
+    .slide-h img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+    .slide-h:hover img{transform:scale(1.04)}
+    .slide-v{flex:0 0 100%;aspect-ratio:9/16;max-height:70vh;overflow:hidden;position:relative;background:var(--mid-dark)}
+    .slide-v img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+    .slide-v:hover img{transform:scale(1.04)}
+    .slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,14,23,.6) 0%,transparent 45%)}
+    .carousel-controls{display:flex;align-items:center;gap:1.2rem;margin-top:2rem}
+    .carousel-btn{width:46px;height:46px;border:1px solid rgba(200,214,224,.3);background:transparent;color:var(--silver);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s}
+    .carousel-btn:hover{background:var(--silver);color:var(--mid-dark)}
+    .carousel-dots{display:flex;gap:.5rem}
+    .dot{width:22px;height:2px;background:rgba(200,214,224,.2);cursor:pointer;transition:all .3s}
+    .dot.active{background:var(--silver);width:44px}
+
+    /* SERVIÇOS */
+    #servicos{background:var(--mid-dark)}
+    .servicos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:3.5rem}
+    .servico-card{background:var(--midnight);padding:3rem 2.4rem;border-top:3px solid transparent;transition:border-color .3s,transform .35s}
+    .servico-card:hover{border-color:var(--silver);transform:translateY(-5px)}
+    .servico-num{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:700;color:rgba(200,214,224,.12);line-height:1;margin-bottom:1.4rem}
+    .servico-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pearl);margin-bottom:.9rem}
+    .servico-desc{font-size:.88rem;line-height:1.85;color:rgba(255,247,230,.52)}
+
+    /* DEPOIMENTOS */
+    #depoimentos{background:var(--midnight);text-align:center}
+    #depoimentos .section-label{justify-content:center}
+    #depoimentos .section-label::before{display:none}
+    .depo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:3.5rem;text-align:left}
+    .depo-card{background:var(--mid-dark);padding:2.4rem;border-bottom:3px solid transparent;transition:border-color .3s}
+    .depo-card:hover{border-color:var(--silver)}
+    .depo-quote{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;line-height:1.85;color:rgba(255,247,230,.78);margin-bottom:1.8rem}
+    .depo-author{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.73rem;letter-spacing:.22em;text-transform:uppercase;color:var(--silver)}
+    .depo-church{font-size:.73rem;color:rgba(255,247,230,.38);margin-top:.25rem}
+
+    /* CTA FINAL */
+    #contato{background:var(--mid-dark);padding:9rem 8vw;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.2rem;position:relative;overflow:hidden}
+    #contato::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(16,46,74,.6) 0%,transparent 70%);pointer-events:none}
+    .cta-avatar{position:relative;z-index:1;margin-bottom:.4rem}
+    .cta-avatar img{width:110px;height:110px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid rgba(200,214,224,0.35);box-shadow:0 0 0 6px rgba(200,214,224,0.07),0 8px 40px rgba(0,0,0,0.5);display:block}
+    .cta-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.38em;text-transform:uppercase;color:var(--silver);position:relative;z-index:1}
+    .cta-divider{width:40px;height:1px;background:rgba(200,214,224,.3);margin:.6rem auto;position:relative;z-index:1}
+    .cta-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;line-height:1.1;color:var(--pearl);position:relative;z-index:1}
+    .cta-title em{font-style:italic;color:var(--silver)}
+    .cta-sub{font-size:.95rem;line-height:1.8;color:rgba(255,247,230,.5);max-width:480px;position:relative;z-index:1}
+    .cta-buttons{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;position:relative;z-index:1;margin-top:1.2rem}
+    .btn-wa{display:inline-flex;align-items:center;gap:.7rem;padding:1.1rem 2.5rem;background:#25D366;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:2px solid #25D366;transition:all .3s}
+    .btn-wa:hover{background:transparent;color:#25D366}
+    .btn-ig{display:inline-flex;align-items:center;gap:.7rem;padding:1.1rem 2.5rem;background:transparent;color:var(--pearl);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;border:2px solid rgba(255,247,230,.3);transition:all .3s}
+    .btn-ig:hover{border-color:var(--pearl);background:rgba(255,247,230,.06)}
+
+    /* FOOTER */
+    footer{background:#040c14;padding:2.5rem 8vw;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(200,214,224,.08)}
+    .footer-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pearl)}
+    .footer-logo span{color:var(--silver)}
+    .footer-copy{font-size:.72rem;color:rgba(255,247,230,.28)}
+
+    /* MARCA DAGUA */
+    .apx-link{display:flex;align-items:center;gap:.5rem;text-decoration:none;opacity:.35;transition:opacity .3s;}
+    .apx-link:hover{opacity:.85;}
+    .apx-link img{width:28px;height:28px;object-fit:contain;display:block;flex-shrink:0;}
+    .apx-link span{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      #sobre{grid-template-columns:1fr;gap:3rem}
+      .servicos-grid{grid-template-columns:1fr}
+      .depo-grid{grid-template-columns:1fr}
+      .slide-h{flex:0 0 86vw}
+      .slide-v{flex:0 0 60vw}
+      .nav-links{display:none}
+      footer{flex-direction:column;gap:1.2rem;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">Pablo <span>Pietro</span></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#portfolio-h">Portfólio</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="stars" id="stars"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-photo">
+    <img src="INICIO.png" alt="Pablo Pietro"/>
+  </div>
+  <div class="hero-name">
+    <span class="hero-name-first">Pablo</span>
+    <span class="hero-name-last">Pietro</span>
+    <span class="hero-tagline">Agendas para Igrejas</span>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="reveal">
+    <p class="section-label">Quem sou eu</p>
+    <h2 class="section-title">Uma agenda bem<br><em>organizada</em> fortalece o ministério</h2>
+    <p class="section-body">Cuidar de uma agenda ministerial é mais do que organizar datas.
+É servir com zelo, entender a realidade de cada igreja e ajudar para que cada ministração aconteça no tempo certo, com paz, propósito e direção do Espírito Santo.</p>
+    <div class="sobre-stats">
+      <div class="stat-card"><div class="stat-num">200<span style="font-size:1.8rem">+</span></div><div class="stat-desc">Igrejas Ministradas</div></div>
+      <div class="stat-card"><div class="stat-num">5</div><div class="stat-desc">Anos de Experiência</div></div>
+      <div class="stat-card"><div class="stat-num">100<span style="font-size:1.8rem">%</span></div><div class="stat-desc">Satisfação</div></div>
+      <div class="stat-card"><div class="stat-num">∞</div><div class="stat-desc">Comprometimento</div></div>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="sobre-img-wrap">
+      <img src="SEGUNDA.PNG" alt="Pablo Pietro"/>
+    </div>
+  </div>
+</section>
+
+<!-- CARROSSEL HORIZONTAL -->
+<section id="portfolio-h" style="background:var(--mid-dark);padding-bottom:4rem">
+  <div class="reveal">
+    <p class="section-label">Portfólio</p>
+    <h2 class="section-title">Trabalhos <em>realizados</em></h2>
+  </div>
+  <div id="ch-box" style="position:relative;width:100%;max-width:900px;aspect-ratio:16/9;overflow:hidden;background:var(--midnight);margin-top:2rem;">
+    <!-- CARROSEL1.png → 1ª foto | CARROSEL2.png → 2ª foto | CARROSEL3.png → 3ª foto -->
+    <img id="ch-img" src="CARROSEL1.png" alt="Trabalho"
+         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .4s ease;"/>
+    <div class="slide-overlay"></div>
+  </div>
+  <div class="carousel-controls">
+    <button class="carousel-btn" id="ph-prev">&#8592;</button>
+    <button class="carousel-btn" id="ph-next">&#8594;</button>
+    <div class="carousel-dots" id="ph-dots">
+      <div class="dot active" data-i="0"></div>
+      <div class="dot" data-i="1"></div>
+      <div class="dot" data-i="2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="reveal" style="text-align:center">
+    <p class="section-label" style="justify-content:center"><span></span>O que ofereço</p>
+    <h2 class="section-title" style="max-width:580px;margin:0 auto 1rem">Serviços <em>exclusivos</em><br>para sua Igreja</h2>
+  </div>
+  <div class="servicos-grid reveal">
+    <div class="servico-card"><div class="servico-num">01</div><div class="servico-title">Agenda Anual Personalizada</div><p class="servico-desc">Planejamento completo do calendário eclesiástico com todos os eventos, datas comemorativas e momentos estratégicos da sua comunidade.</p></div>
+    <div class="servico-card"><div class="servico-num">02</div><div class="servico-title">Agenda Ministerial</div><p class="servico-desc">Organização detalhada dos ministérios, escalas de serviço e reuniões de liderança integradas a um único documento funcional.</p></div>
+    <div class="servico-card"><div class="servico-num">03</div><div class="servico-title">Consultoria Estratégica</div><p class="servico-desc">Análise e reestruturação do planejamento atual da sua igreja, identificando lacunas e oportunidades de crescimento ministerial.</p></div>
+  </div>
+</section>
+
+<!-- CARROSSEL VERTICAL -->
+<section id="portfolio-v" style="background:var(--midnight);padding-bottom:4rem">
+  <div class="reveal">
+    <p class="section-label">Detalhes</p>
+    <h2 class="section-title">Cada detalhe <em>importa</em></h2>
+  </div>
+  <div id="cv-box" style="position:relative;width:100%;max-width:360px;aspect-ratio:9/16;overflow:hidden;background:var(--mid-dark);margin-top:2rem;">
+    <!-- slide1.png → 1ª | slide2.png → 2ª | slide3.png → 3ª -->
+    <img id="cv-img" src="slide1.png" alt="Detalhe"
+         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .4s ease;"/>
+    <div class="slide-overlay"></div>
+  </div>
+  <div class="carousel-controls">
+    <button class="carousel-btn" id="pv-prev">&#8592;</button>
+    <button class="carousel-btn" id="pv-next">&#8594;</button>
+    <div class="carousel-dots" id="pv-dots">
+      <div class="dot active" data-i="0"></div>
+      <div class="dot" data-i="1"></div>
+      <div class="dot" data-i="2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos">
+  <p class="section-label">Depoimentos</p>
+  <h2 class="section-title">O que as <em>igrejas</em> dizem</h2>
+  <div class="depo-grid reveal">
+    <div class="depo-card"><p class="depo-quote">"O trabalho do Pablo transformou completamente a nossa organização interna. Nossa equipe nunca esteve tão alinhada e engajada."</p><div class="depo-author">Pastor João Silva</div><div class="depo-church">Igreja Exemplo — São Paulo, SP</div></div>
+    <div class="depo-card"><p class="depo-quote">"Profissionalismo impecável. Entregou além do que esperávamos, com atenção a cada detalhe do nosso calendário ministerial."</p><div class="depo-author">Pastora Maria Lima</div><div class="depo-church">Comunidade Nova Vida — Rio de Janeiro, RJ</div></div>
+    <div class="depo-card"><p class="depo-quote">"Recomendo de olhos fechados. A agenda criada pelo Pablo é um instrumento de governo e visão para toda a nossa liderança."</p><div class="depo-author">Pr. Carlos Mendes</div><div class="depo-church">Igreja Ágape — Belo Horizonte, MG</div></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="contato">
+  <div class="cta-avatar reveal">
+    <img src="FINAL.PNG" alt="Pablo Pietro"/>
+  </div>
+  <div class="cta-label reveal">Entre em Contato</div>
+  <div class="cta-divider reveal"></div>
+  <h2 class="cta-title reveal">Pronto para organizar<br>o futuro da sua <em>Igreja?</em></h2>
+  <p class="cta-sub reveal">Solicite agora sua agenda personalizada e leve sua comunidade a um novo nível de organização ministerial.</p>
+  <div class="cta-buttons reveal">
+    <a href="https://wa.me/5521994962955?text=Oi%2C%20gostaria%20de%20marcar%20uma%20agenda%20com%20o%20Pablo%20Pietro." class="btn-wa" target="_blank" rel="noopener">&#128172;&nbsp; Agendar via WhatsApp</a>
+    <a href="https://instagram.com/pablopietro.oficial" class="btn-ig" target="_blank" rel="noopener">&#128247;&nbsp; Ver no Instagram</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Pablo <span>Pietro</span></div>
+  <div class="footer-copy">© 2025 Pablo Pietro · Todos os direitos reservados</div>
+  <a href="https://instagram.com/apxsites" target="_blank" rel="noopener" class="apx-link">
+    <img src="LOGO.PNG" alt="APX Sites"/>
+    <span>APX Sites</span>
+  </a>
+</footer>
+
+<script>
+  // STARS
+  const starsEl=document.getElementById('stars');
+  for(let i=0;i<90;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=Math.random()*2+.5;
+    s.style.cssText=`width:${sz}px;height:${sz}px;top:${Math.random()*100}%;left:${Math.random()*100}%;--d:${(Math.random()*3+2).toFixed(1)}s;--a1:${(Math.random()*.3+.05).toFixed(2)};--a2:${(Math.random()*.5+.2).toFixed(2)};animation-delay:${(Math.random()*4).toFixed(1)}s`;
+    starsEl.appendChild(s);
+  }
+  // NAV
+  const nav=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60));
+  // REVEAL
+  const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // PRE-LOAD
+  (function(){
+    var hImgs=['CARROSEL1.png','CARROSEL2.png','CARROSEL3.png'];
+    var vImgs=['slide1.png','slide2.png','slide3.png'];
+    [...hImgs,...vImgs].forEach(function(src){var i=new Image();i.src=src;});
+  })();
+
+  // CAROUSEL HORIZONTAL
+  (function(){
+    var imgs=['CARROSEL1.png','CARROSEL2.png','CARROSEL3.png'];
+    var el=document.getElementById('ch-img');
+    var dots=document.querySelectorAll('#ph-dots .dot');
+    var cur=0;
+    function go(n){
+      var next=(n+imgs.length)%imgs.length;
+      el.style.opacity='0';
+      setTimeout(function(){cur=next;el.src=imgs[cur];el.style.opacity='1';dots.forEach(function(d,i){d.classList.toggle('active',i===cur);});},350);
+    }
+    var timer=setInterval(function(){go(cur+1);},2000);
+    function reset(){clearInterval(timer);timer=setInterval(function(){go(cur+1);},2000);}
+    document.getElementById('ph-prev').onclick=function(){go(cur-1);reset();};
+    document.getElementById('ph-next').onclick=function(){go(cur+1);reset();};
+    dots.forEach(function(d){d.onclick=function(){go(+d.dataset.i);reset();};});
+  })();
+
+  // CAROUSEL VERTICAL
+  (function(){
+    var imgs=['slide1.png','slide2.png','slide3.png'];
+    var el=document.getElementById('cv-img');
+    var dots=document.querySelectorAll('#pv-dots .dot');
+    var cur=0;
+    function go(n){
+      var next=(n+imgs.length)%imgs.length;
+      el.style.opacity='0';
+      setTimeout(function(){cur=next;el.src=imgs[cur];el.style.opacity='1';dots.forEach(function(d,i){d.classList.toggle('active',i===cur);});},350);
+    }
+    var timer=setInterval(function(){go(cur+1);},2000);
+    function reset(){clearInterval(timer);timer=setInterval(function(){go(cur+1);},2000);}
+    document.getElementById('pv-prev').onclick=function(){go(cur-1);reset();};
+    document.getElementById('pv-next').onclick=function(){go(cur+1);reset();};
+    dots.forEach(function(d){d.onclick=function(){go(+d.dataset.i);reset();};});
+  })();
+</script>
+</body>
+</html>
